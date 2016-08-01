@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="./bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <script src="./bower_components/jquery/dist/jquery.js"></script>
+    <script src="./bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+    <link href="./bower_components/bootstrap-treeview/dist/bootstrap-treeview.min.css" rel="stylesheet">
+</head>
+<body>
+<h2>Checkable Tree</h2>
+<div class="col-sm-4">
+    <h2>Input</h2>
+    <div class="form-group">
+        <label for="input-check-node" class="sr-only">Search Tree:</label>
+        <input type="input" class="form-control" id="input-check-node" placeholder="Identify node..." value="Parent 1">
+    </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" class="checkbox" id="chk-check-silent" value="false">
+            Silent (No events)
+        </label>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-success check-node" id="btn-check-node">Check Node</button>
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-danger check-node" id="btn-uncheck-node">Uncheck Node</button>
+    </div>
+    <div class="form-group">
+        <button type="button" class="btn btn-primary check-node" id="btn-toggle-checked">Toggle Node</button>
+    </div>
+    <hr>
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <button type="button" class="btn btn-success" id="btn-check-all">Check All</button>
+        </div>
+    </div>
+    <button type="button" class="btn btn-danger" id="btn-uncheck-all">Uncheck All</button>
+</div>
+<div class="col-sm-4">
+    <h2>Tree</h2>
+    <div id="treeview-checkable" class=""></div>
+</div>
+<div class="col-sm-4">
+    <h2>Events</h2>
+    <div id="checkable-output"></div>
+</div>
+</body>
+<script>
+    $(function() {
+        var defaultData = [
+            {
+                text: 'Parent 1',
+                href: '#parent1',
+                tags: ['4'],
+                nodes: [
+                    {
+                        text: 'Child 1',
+                        href: '#child1',
+                        tags: ['2'],
+                        nodes: [
+                            {
+                                text: 'Grandchild 1',
+                                href: '#grandchild1',
+                                tags: ['0']
+                            },
+                            {
+                                text: 'Grandchild 2',
+                                href: '#grandchild2',
+                                tags: ['0']
+                            }
+                        ]
+                    },
+                    {
+                        text: 'Child 2',
+                        href: '#child2',
+                        tags: ['0']
+                    }
+                ]
+            },
+            {
+                text: 'Parent 2',
+                href: '#parent2',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 3',
+                href: '#parent3',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 4',
+                href: '#parent4',
+                tags: ['0']
+            },
+            {
+                text: 'Parent 5',
+                href: '#parent5'  ,
+                tags: ['0']
+            }
+        ];
+
+        var $checkableTree = $('#treeview-checkable').treeview({
+            data: defaultData,
+            showIcon: false,
+            showCheckbox: true,
+            onNodeChecked: function(event, node) {
+                $('#checkable-output').prepend('<p>' + node.text + ' was checked</p>');
+            },
+            onNodeUnchecked: function (event, node) {
+                $('#checkable-output').prepend('<p>' + node.text + ' was unchecked</p>');
+            }
+        });
+    });
+</script>
+</html>
